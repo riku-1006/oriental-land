@@ -1,0 +1,7 @@
+{
+    "name": "oriental-land-reports",
+    "rewrites": [
+      { "source": "/report1", "destination": "/report1.html" },
+      { "source": "/report2", "destination": "/report2.html" }
+    ]
+  }

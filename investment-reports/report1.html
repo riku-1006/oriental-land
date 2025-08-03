@@ -6,13 +6,44 @@
     <title>オリエンタルランド企業分析レポート</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
+        /* ==============================================
+           COLOR SYSTEM - 統一カラールール
+           ============================================== */
+        :root {
+            /* Primary Colors - メインカラー */
+            --primary-blue: #2a5298;
+            --primary-dark: #1e3c72;
+            --primary-light: #3d6cb9;
+            
+            /* Secondary Colors - アクセントカラー */
+            --accent-teal: #4ecdc4;
+            --accent-gold: #ffd93d;
+            --accent-coral: #ff6b6b;
+            
+            /* Neutral Colors - ニュートラルカラー */
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #666666;
+            --dark-gray: #333333;
+            --border-gray: #e8f4f8;
+            
+            /* Gradient Combinations */
+            --gradient-main: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --gradient-light: linear-gradient(135deg, #2a5298 0%, #3d6cb9 100%);
+            --gradient-accent: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            
+            /* Status Colors */
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--dark-gray);
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: var(--light-gray);
         }
         .container {
             max-width: 1200px;
@@ -20,12 +51,12 @@
             padding: 20px;
         }
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
+            background: var(--gradient-main);
+            color: var(--white);
             padding: 40px;
             border-radius: 10px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(30, 60, 114, 0.1);
         }
         .header h1 {
             margin: 0 0 10px 0;
@@ -37,22 +68,22 @@
             opacity: 0.9;
         }
         .executive-summary {
-            background: #fff;
+            background: var(--white);
             padding: 30px;
             border-radius: 10px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 5px solid #ff6b6b;
+            box-shadow: 0 2px 4px rgba(30, 60, 114, 0.1);
+            border-left: 5px solid var(--accent-coral);
         }
         .toc {
-            background: #fff;
+            background: var(--white);
             padding: 30px;
             border-radius: 10px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(30, 60, 114, 0.1);
         }
         .toc h2 {
-            color: #2a5298;
+            color: var(--primary-blue);
             margin-bottom: 20px;
         }
         .toc-list {
@@ -67,23 +98,23 @@
             border-bottom: none;
         }
         .toc-list a {
-            color: #2a5298;
+            color: var(--primary-blue);
             text-decoration: none;
             font-weight: 500;
         }
         .toc-list a:hover {
-            color: #ff6b6b;
+            color: var(--accent-coral);
         }
         .section {
-            background: #fff;
+            background: var(--white);
             padding: 30px;
             border-radius: 10px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(30, 60, 114, 0.1);
         }
         .section h2 {
-            color: #2a5298;
-            border-bottom: 3px solid #f0f0f0;
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--border-gray);
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
@@ -95,20 +126,20 @@
         }
         .metric-box {
             display: inline-block;
-            background: #f8f9fa;
+            background: var(--light-gray);
             padding: 15px 25px;
             border-radius: 8px;
             margin: 10px 10px 10px 0;
-            border-left: 4px solid #4ecdc4;
+            border-left: 4px solid var(--accent-teal);
         }
         .metric-value {
             font-size: 1.5em;
             font-weight: bold;
-            color: #2a5298;
+            color: var(--primary-blue);
         }
         .metric-label {
             font-size: 0.9em;
-            color: #666;
+            color: var(--medium-gray);
         }
         table {
             width: 100%;
@@ -121,16 +152,16 @@
             border-bottom: 1px solid #eee;
         }
         th {
-            background: #f8f9fa;
+            background: var(--light-gray);
             font-weight: bold;
-            color: #2a5298;
+            color: var(--primary-blue);
         }
         .positive {
-            color: #28a745;
+            color: var(--success-color);
             font-weight: bold;
         }
         .negative {
-            color: #dc3545;
+            color: var(--danger-color);
             font-weight: bold;
         }
         .chart-container {
@@ -139,13 +170,13 @@
             margin: 30px 0;
         }
         .references {
-            background: #f8f9fa;
+            background: var(--light-gray);
             padding: 30px;
             border-radius: 10px;
             margin-top: 40px;
         }
         .references h2 {
-            color: #2a5298;
+            color: var(--primary-blue);
             margin-bottom: 20px;
         }
         .references ul {
@@ -156,15 +187,15 @@
             padding: 8px 0;
         }
         .references a {
-            color: #2a5298;
+            color: var(--primary-blue);
             text-decoration: none;
         }
         .references a:hover {
             text-decoration: underline;
         }
         .conclusion-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--gradient-accent);
+            color: var(--white);
             padding: 30px;
             border-radius: 10px;
             margin-top: 30px;
@@ -372,7 +403,7 @@
             <h2>4. 今後の業績に対する会社見通し</h2>
             
             <h3>2035年長期経営戦略</h3>
-            <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <div style="background: var(--border-gray); padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h4 style="margin-top: 0;">売上高1兆円企業への成長目標</h4>
                 <ul>
                     <li><strong>売上高目標</strong>：1兆円以上（現在の約1.6倍）</li>
@@ -437,7 +468,7 @@
             </ol>
 
             <h3>重点戦略と投資計画</h3>
-            <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <div style="background: var(--light-gray); padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h4 style="margin-top: 0;">総額7,000億円超の大型投資プロジェクト</h4>
                 <ul>
                     <li><strong>スペース・マウンテン再開発</strong>：560億円（2027年開業）</li>
@@ -559,7 +590,7 @@
 </body>
 <!-- 戻るボタン - 白基調 + 青い影 -->
 <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-    <a href="/" style="
+    <a href="index.html" style="
         display: inline-flex;
         align-items: center;
         padding: 12px 24px;

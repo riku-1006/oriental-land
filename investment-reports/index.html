@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>オリエンタルランド投資分析レポート</title>
     <style>
+        /* ==============================================
+           COLOR SYSTEM - 統一カラールール
+           ============================================== */
+        :root {
+            /* Primary Colors - メインカラー */
+            --primary-blue: #2a5298;
+            --primary-dark: #1e3c72;
+            --primary-light: #3d6cb9;
+            
+            /* Secondary Colors - アクセントカラー */
+            --accent-teal: #4ecdc4;
+            --accent-gold: #ffd93d;
+            --accent-coral: #ff6b6b;
+            
+            /* Neutral Colors - ニュートラルカラー */
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #666666;
+            --dark-gray: #333333;
+            --border-gray: #e8f4f8;
+            
+            /* Gradient Combinations */
+            --gradient-main: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --gradient-light: linear-gradient(135deg, #2a5298 0%, #3d6cb9 100%);
+            --gradient-teal: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd93d 0%, #ff9f1c 100%);
+            --gradient-coral: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +42,7 @@
         
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background: linear-gradient(135deg, #2a5298 0%, #3d6cb9 100%);
+            background: var(--gradient-main);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,14 +54,14 @@
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
             padding: 60px 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(30, 60, 114, 0.15);
+            max-width: 1200px;
             width: 100%;
         }
         
         h1 {
             text-align: center;
-            color: #2a5298;
+            color: var(--primary-blue);
             font-size: 2.8em;
             margin-bottom: 20px;
             font-weight: 700;
@@ -40,7 +69,7 @@
         
         .subtitle {
             text-align: center;
-            color: #666;
+            color: var(--medium-gray);
             font-size: 1.2em;
             margin-bottom: 50px;
             font-weight: 400;
@@ -54,16 +83,16 @@
         }
         
         .report-card {
-            background: #f8f9fa;
+            background: var(--light-gray);
             border-radius: 15px;
             padding: 30px;
             text-decoration: none;
-            color: #333;
+            color: var(--dark-gray);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             border: 2px solid transparent;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 6px rgba(30, 60, 114, 0.08);
         }
         
         .report-card::before {
@@ -77,17 +106,21 @@
         }
         
         .report-card.report-1::before {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: var(--gradient-main);
         }
         
         .report-card.report-2::before {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
+            background: var(--gradient-coral);
+        }
+        
+        .report-card.report-3::before {
+            background: var(--gradient-teal);
         }
         
         .report-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border-color: #e8f4f8;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.2);
+            border-color: var(--border-gray);
         }
         
         .report-card:hover::before {
@@ -109,11 +142,15 @@
         }
         
         .report-1 .report-number {
-            color: #2a5298;
+            color: var(--primary-blue);
         }
         
         .report-2 .report-number {
-            color: #ff6b6b;
+            color: var(--accent-coral);
+        }
+        
+        .report-3 .report-number {
+            color: var(--accent-teal);
         }
         
         .report-title {
@@ -150,11 +187,15 @@
         }
         
         .report-1 .highlight-item::before {
-            color: #4ecdc4;
+            color: var(--primary-blue);
         }
         
         .report-2 .highlight-item::before {
-            color: #ffd93d;
+            color: var(--accent-coral);
+        }
+        
+        .report-3 .highlight-item::before {
+            color: var(--accent-teal);
         }
         
         .report-meta {
@@ -162,7 +203,7 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            border-top: 1px solid rgba(30, 60, 114, 0.08);
         }
         
         .report-date {
@@ -179,11 +220,15 @@
         }
         
         .report-1 .report-link {
-            color: #2a5298;
+            color: var(--primary-blue);
         }
         
         .report-2 .report-link {
-            color: #ff6b6b;
+            color: var(--accent-coral);
+        }
+        
+        .report-3 .report-link {
+            color: var(--accent-teal);
         }
         
         .report-link svg {
@@ -195,13 +240,20 @@
             transform: translateX(5px);
         }
         
+        .external-link-icon {
+            width: 16px;
+            height: 16px;
+            margin-left: 8px;
+            opacity: 0.6;
+        }
+        
         .footer {
             text-align: center;
             margin-top: 50px;
-            color: #666;
+            color: var(--medium-gray);
             font-size: 0.9em;
             padding-top: 30px;
-            border-top: 1px solid #e8f4f8;
+            border-top: 1px solid var(--border-gray);
         }
         
         .highlight {
@@ -218,7 +270,7 @@
         <p class="subtitle">投資銀行向け詳細分析資料・戦略提案書</p>
         
         <div class="report-grid">
-            <a href="/report1.html" class="report-card report-1">
+            <a href="report1.html" class="report-card report-1">
                 <div class="report-content">
                     <div class="report-number">Report #001 - 企業分析</div>
                     <h2 class="report-title">オリエンタルランド<br>企業分析レポート</h2>
@@ -243,7 +295,7 @@
                 </div>
             </a>
             
-            <a href="/report2.html" class="report-card report-2">
+            <a href="report2.html" class="report-card report-2">
                 <div class="report-content">
                     <div class="report-number">Report #002 - M&A戦略</div>
                     <h2 class="report-title">戦略的M&A提案書<br>買収候補企業4社</h2>
@@ -262,6 +314,31 @@
                             詳細を見る
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M5 12h14m-7-7l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://www.olc.co.jp/ja/ir/management/plan.html" target="_blank" rel="noopener noreferrer" class="report-card report-3">
+                <div class="report-content">
+                    <div class="report-number">Official - 経営計画</div>
+                    <h2 class="report-title">オリエンタルランド<br>公式事業計画</h2>
+                    <p class="report-description">
+                        オリエンタルランド公式サイトで公開されている2035長期経営戦略と最新の事業計画をご確認いただけます。
+                    </p>
+                    <div class="report-highlights">
+                        <div class="highlight-item">2035長期経営戦略の詳細</div>
+                        <div class="highlight-item">テーマパーク開発方針と投資計画</div>
+                        <div class="highlight-item">ディズニークルーズ事業の展開</div>
+                        <div class="highlight-item">ESGマテリアリティと株主還元方針</div>
+                    </div>
+                    <div class="report-meta">
+                        <span class="report-date">2025年4月28日更新</span>
+                        <span class="report-link">
+                            公式サイトへ
+                            <svg class="external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
                             </svg>
                         </span>
                     </div>

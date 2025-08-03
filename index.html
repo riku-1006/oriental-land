@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オリエンタルランド企業分析レポート</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .executive-summary {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b6b;
+        }
+        .toc {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .toc h2 {
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        .toc-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .toc-list li:last-child {
+            border-bottom: none;
+        }
+        .toc-list a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .toc-list a:hover {
+            color: #ff6b6b;
+        }
+        .section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #2a5298;
+            border-bottom: 3px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .highlight {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .metric-box {
+            display: inline-block;
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 10px 10px 10px 0;
+            border-left: 4px solid #4ecdc4;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2a5298;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #2a5298;
+        }
+        .positive {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .negative {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 30px 0;
+        }
+        .references {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .references h2 {
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+        .references ul {
+            list-style: none;
+            padding: 0;
+        }
+        .references li {
+            padding: 8px 0;
+        }
+        .references a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+        .references a:hover {
+            text-decoration: underline;
+        }
+        .conclusion-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .conclusion-box h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>オリエンタルランド株式会社（4661）</h1>
+            <p>投資銀行向け企業分析レポート - 2025年7月</p>
+        </div>
+
+        <div class="executive-summary">
+            <h2>エグゼクティブサマリー</h2>
+            <p>オリエンタルランドは、東京ディズニーリゾートを運営する日本唯一のディズニーライセンシーとして、<span class="highlight">2024年度に売上高6,185億円、営業利益1,654億円の過去最高業績</span>を達成。2035年に売上高1兆円を目指す長期経営戦略の下、総額7,000億円超の大型投資を実行中。自己資本比率69.8%、JCR格付AA/安定的という強固な財務基盤を有し、長期的な成長ポテンシャルを有する優良企業。</p>
+        </div>
+
+        <div class="toc">
+            <h2>確認のポイント（目次）</h2>
+            <ul class="toc-list">
+                <li><a href="#business">1. 事業内容（どういった事業を営んでいるのか）</a></li>
+                <li><a href="#finance">2. 財務状況（直近の業績、財務指標、格付け等）</a></li>
+                <li><a href="#stock">3. 株価推移</a></li>
+                <li><a href="#outlook">4. 今後の業績に対する会社見通し</a></li>
+                <li><a href="#regulation">5. 事業を行う上での規制等の有無</a></li>
+                <li><a href="#strategy">6. 今後の経営課題・戦略</a></li>
+                <li><a href="#ma">7. 開示されている過去のM&A案件</a></li>
+                <li><a href="#funding">8. 資金調達の状況（株、社債、ローンの発行・借入れ状況）</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="business">
+            <h2>1. 事業内容（どういった事業を営んでいるのか）</h2>
+            
+            <h3>セグメント別事業構成（2024年度）</h3>
+            <table>
+                <tr>
+                    <th>セグメント</th>
+                    <th>売上高</th>
+                    <th>構成比</th>
+                    <th>営業利益</th>
+                    <th>利益率</th>
+                </tr>
+                <tr>
+                    <td>テーマパーク事業</td>
+                    <td class="positive">5,521億円</td>
+                    <td>83%</td>
+                    <td class="positive">1,386億円</td>
+                    <td>25.1%</td>
+                </tr>
+                <tr>
+                    <td>ホテル事業</td>
+                    <td>1,105億円</td>
+                    <td>15%</td>
+                    <td>243億円</td>
+                    <td>22.0%</td>
+                </tr>
+                <tr>
+                    <td>その他事業</td>
+                    <td>260億円</td>
+                    <td>2%</td>
+                    <td>25億円</td>
+                    <td>9.6%</td>
+                </tr>
+            </table>
+
+            <h3>東京ディズニーリゾートの運営内容</h3>
+            <ul>
+                <li><strong>東京ディズニーランド</strong>（1983年開園）- 面積51万㎡</li>
+                <li><strong>東京ディズニーシー</strong>（2001年開園）- 面積49万㎡</li>
+                <li><strong>ファンタジースプリングス</strong>（2024年6月開業）- <span class="highlight">総投資額3,200億円</span></li>
+            </ul>
+            
+            <div style="margin: 20px 0;">
+                <div class="metric-box">
+                    <div class="metric-value">2,800万人</div>
+                    <div class="metric-label">年間入園者数</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">16,644円</div>
+                    <div class="metric-label">ゲスト1人当たり売上高</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">98.4%</div>
+                    <div class="metric-label">ホテル稼働率</div>
+                </div>
+            </div>
+
+            <h3>ディズニー社とのライセンス契約</h3>
+            <p><span class="highlight">世界で唯一、ディズニー社の資本参加を受けていないライセンス運営</span>を実施。入園料収入の10%をロイヤリティとして支払い（年間約400億円）。現行契約は<strong>2076年まで有効</strong>。</p>
+        </div>
+
+        <div class="section" id="finance">
+            <h2>2. 財務状況（直近の業績、財務指標、格付け等）</h2>
+            
+            <h3>2024年度財務実績</h3>
+            <div style="margin: 20px 0;">
+                <div class="metric-box">
+                    <div class="metric-value">6,185億円</div>
+                    <div class="metric-label">売上高（前期比+28.0%）</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">1,654億円</div>
+                    <div class="metric-label">営業利益（前期比+48.8%）</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">26.7%</div>
+                    <div class="metric-label">営業利益率</div>
+                </div>
+            </div>
+
+            <h3>主要財務指標</h3>
+            <table>
+                <tr>
+                    <th>指標</th>
+                    <th>数値</th>
+                    <th>評価</th>
+                </tr>
+                <tr>
+                    <td>ROE</td>
+                    <td class="positive">12.7%</td>
+                    <td>高水準を維持</td>
+                </tr>
+                <tr>
+                    <td>ROA</td>
+                    <td>8.9%</td>
+                    <td>業界平均以上</td>
+                </tr>
+                <tr>
+                    <td>自己資本比率</td>
+                    <td class="positive">69.8%</td>
+                    <td>極めて健全</td>
+                </tr>
+                <tr>
+                    <td>営業CF</td>
+                    <td class="positive">1,977億円</td>
+                    <td>過去最高</td>
+                </tr>
+                <tr>
+                    <td>PER</td>
+                    <td>42.9倍</td>
+                    <td>成長期待を反映</td>
+                </tr>
+                <tr>
+                    <td>PBR</td>
+                    <td>5.3倍</td>
+                    <td>ブランド価値を評価</td>
+                </tr>
+                <tr>
+                    <td>EV/EBITDA</td>
+                    <td>18.2倍</td>
+                    <td>適正水準</td>
+                </tr>
+            </table>
+
+            <h3>格付評価</h3>
+            <p>日本格付研究所（JCR）より<span class="highlight">長期発行体格付AA/安定的</span>を取得（2024年1月確認）</p>
+        </div>
+
+        <div class="section" id="stock">
+            <h2>3. 株価推移</h2>
+            
+            <div class="chart-container">
+                <canvas id="stockChart"></canvas>
+            </div>
+
+            <h3>現在の株価状況（2025年7月時点）</h3>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>数値</th>
+                </tr>
+                <tr>
+                    <td>現在値</td>
+                    <td>3,127円</td>
+                </tr>
+                <tr>
+                    <td>時価総額</td>
+                    <td>約5.13兆円</td>
+                </tr>
+                <tr>
+                    <td>52週レンジ</td>
+                    <td>2,755円～4,584円</td>
+                </tr>
+                <tr>
+                    <td>年初来パフォーマンス</td>
+                    <td class="negative">-28.48%</td>
+                </tr>
+                <tr>
+                    <td>PER</td>
+                    <td>39.72～46.25倍</td>
+                </tr>
+                <tr>
+                    <td>配当利回り</td>
+                    <td>0.45%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section" id="outlook">
+            <h2>4. 今後の業績に対する会社見通し</h2>
+            
+            <h3>2035年長期経営戦略</h3>
+            <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="margin-top: 0;">売上高1兆円企業への成長目標</h4>
+                <ul>
+                    <li><strong>売上高目標</strong>：1兆円以上（現在の約1.6倍）</li>
+                    <li><strong>営業CF</strong>：2029年度に3,000億円レベル</li>
+                    <li><strong>配当性向</strong>：30%へ段階的引き上げ（現在18.6%）</li>
+                </ul>
+            </div>
+
+            <h3>成長ドライバー</h3>
+            <ol>
+                <li><strong>ファンタジースプリングス通年稼働効果</strong>（年間750億円増収見込み）</li>
+                <li><strong>クルーズ事業参入</strong>（2028年度就航、売上高約1,000億円目標）</li>
+                <li><strong>継続的な設備投資</strong>（年間500億円レベル）</li>
+                <li><strong>客単価向上戦略</strong>（ダイナミックプライシング、プレミアアクセス拡充）</li>
+            </ol>
+        </div>
+
+        <div class="section" id="regulation">
+            <h2>5. 事業を行う上での規制等の有無</h2>
+            
+            <h3>主要な規制対応</h3>
+            <table>
+                <tr>
+                    <th>規制分野</th>
+                    <th>内容</th>
+                    <th>対応状況</th>
+                </tr>
+                <tr>
+                    <td>建築基準法・消防法</td>
+                    <td>遊戯施設の安全基準遵守</td>
+                    <td>定期検査実施</td>
+                </tr>
+                <tr>
+                    <td>食品衛生法</td>
+                    <td>パーク内飲食施設の衛生管理</td>
+                    <td>HACCP対応</td>
+                </tr>
+                <tr>
+                    <td>環境規制</td>
+                    <td>CO2排出削減要請</td>
+                    <td>2050年ネットゼロ目標設定</td>
+                </tr>
+                <tr>
+                    <td>労働規制</td>
+                    <td>働き方改革関連法</td>
+                    <td>2万人の正社員転換実施</td>
+                </tr>
+            </table>
+
+            <h3>ライセンス契約の安定性</h3>
+            <p>ディズニー社との契約は<span class="highlight">2076年まで延長済み</span>。ロイヤリティ率（入園料の10%）に変更なし。</p>
+        </div>
+
+        <div class="section" id="strategy">
+            <h2>6. 今後の経営課題・戦略</h2>
+            
+            <h3>主要経営課題</h3>
+            <ol>
+                <li><strong>人材確保</strong>：労働人口減少による採用困難化、人件費上昇</li>
+                <li><strong>設備老朽化</strong>：開園40年超の施設更新需要増大</li>
+                <li><strong>競合対策</strong>：USJとのインバウンド獲得競争激化</li>
+            </ol>
+
+            <h3>重点戦略と投資計画</h3>
+            <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="margin-top: 0;">総額7,000億円超の大型投資プロジェクト</h4>
+                <ul>
+                    <li><strong>スペース・マウンテン再開発</strong>：560億円（2027年開業）</li>
+                    <li><strong>クルーズ事業</strong>：3,300億円（2028年度就航）</li>
+                    <li><strong>ESG投資</strong>：環境対応設備、再生可能エネルギー導入</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="ma">
+            <h2>7. 開示されている過去のM&A案件</h2>
+            
+            <h3>過去5年間の主要案件</h3>
+            <ul>
+                <li><strong>CVC活動強化</strong>：投資枠を30億円から130億円に増額</li>
+                <li><strong>TechMagic</strong>（調理ロボット開発）への出資</li>
+                <li><strong>カンリー</strong>（SNS管理SaaS）への出資</li>
+                <li><strong>オリエンタルランド・イノベーションズ</strong>設立によるベンチャー投資加速</li>
+            </ul>
+        </div>
+
+        <div class="section" id="funding">
+            <h2>8. 資金調達の状況（株、社債、ローンの発行・借入れ状況）</h2>
+            
+            <h3>財務構造</h3>
+            <table>
+                <tr>
+                    <th>項目</th>
+                    <th>数値・内容</th>
+                </tr>
+                <tr>
+                    <td>自己資本比率</td>
+                    <td class="positive">70.1%（極めて健全）</td>
+                </tr>
+                <tr>
+                    <td>有利子負債</td>
+                    <td>低水準を維持</td>
+                </tr>
+                <tr>
+                    <td>信用枠</td>
+                    <td>地震リスク対応型コミットメントライン1,500億円</td>
+                </tr>
+            </table>
+
+            <h3>株主還元実績</h3>
+            <ul>
+                <li><strong>配当</strong>：2025年3月期は年間14円（前期比+1円）</li>
+                <li><strong>自己株式取得</strong>：2025年3月期に621億円実施</li>
+                <li><strong>総還元性向</strong>：成長投資優先も着実に株主還元強化</li>
+            </ul>
+        </div>
+
+        <div class="conclusion-box">
+            <h3>投資判断：中長期投資における「買い」推奨</h3>
+            <p>オリエンタルランドは、独占的なビジネスモデルと圧倒的なブランド力により、長期的な成長が期待できる日本を代表するエンターテインメント企業である。短期的な株価調整局面は、中長期投資家にとって良好なエントリー機会と判断される。</p>
+            <p><strong>2035年売上高1兆円目標に向けた成長ストーリーは明確</strong>であり、投資銀行の観点からも優良な投資対象として推奨できる。</p>
+        </div>
+
+        <div class="references">
+            <h2>ご確認いただきたい開示資料（参考文献）</h2>
+            <ul>
+                <li><a href="https://www.olc.co.jp/ja/company.html" target="_blank">オリエンタルランド 企業情報</a></li>
+                <li><a href="https://www.olc.co.jp/ja/ir/library/securities.html" target="_blank">有価証券報告書</a></li>
+                <li><a href="https://www.olc.co.jp/ja/ir/library.html" target="_blank">決算短信・決算説明会資料</a></li>
+                <li><a href="https://www.olc.co.jp/ja/ir/library/annual.html" target="_blank">統合報告書／アニュアルレポート</a></li>
+                <li><a href="https://www.olc.co.jp/ja/ir/management/plan.html" target="_blank">中期経営計画・長期ビジョン</a></li>
+                <li><a href="https://www.olc.co.jp/ja/ir.html" target="_blank">IR関連資料一覧</a></li>
+                <li><a href="https://www.jcr.co.jp/ratinglist/corp/4661" target="_blank">日本格付研究所（JCR）格付情報</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 株価チャートの描画
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        const stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2024/8', '2024/9', '2024/10', '2024/11', '2024/12', '2025/1', '2025/2', '2025/3', '2025/4', '2025/5', '2025/6', '2025/7'],
+                datasets: [{
+                    label: '株価（円）',
+                    data: [4200, 4350, 4500, 4584, 4420, 4380, 4100, 3800, 3500, 3300, 3250, 3127],
+                    borderColor: '#2a5298',
+                    backgroundColor: 'rgba(42, 82, 152, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'オリエンタルランド株価推移（2024年8月～2025年7月）',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 2500,
+                        max: 5000,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + '円';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

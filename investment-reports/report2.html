@@ -497,26 +497,26 @@
         });
     </script>
 </body>
-<!-- 戻るボタン - <body>タグの直後に追加 -->
-    <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-        <a href="/" style="
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 20px;
-            background: #2a5298;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        " onmouseover="this.style.background='#1e3c72'" 
-           onmouseout="this.style.background='#2a5298'">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
-                <path d="M19 12H5m7-7l-7 7 7 7"/>
-            </svg>
-            レポート一覧へ
-        </a>
-    </div>
+<!-- 戻るボタン - 白基調 + 青い影 -->
+<div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
+    <a href="/" style="
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        background: white;
+        color: #2a5298;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(42, 82, 152, 0.2);
+        transition: all 0.3s ease;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(42, 82, 152, 0.3)'" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(42, 82, 152, 0.2)'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="2.5" style="margin-right: 8px;">
+            <path d="M19 12H5m7-7l-7 7 7 7"/>
+        </svg>
+        レポート一覧へ
+    </a>
+</div>
 </html> 
